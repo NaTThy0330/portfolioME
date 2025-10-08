@@ -3,15 +3,26 @@ import { useRef, useState } from 'react';
 import { ExternalLink, Github } from 'lucide-react';
 import { ImageWithFallback } from './figma/ImageWithFallback';
 
-const projects = [
+type Project = {
+  id: number;
+  title: string;
+  category: string;
+  description: string;
+  image: string;
+  tags: string[];
+  link: string;
+  github: string;
+  video?: string;
+};
+
+const projects: Project[] = [
   {
     id: 1,
     title: 'Restaurant Reservation Web Service',
     category: 'Backend Web Service',
     description:
       'Backend services for customer portal (menu, reservation, review, promotions) and restaurant management (booking queue, menu & promotion control). Designed RESTful endpoints for booking and availability, integrated two services for real-time updates, with unit/integration testing.',
-    image:
-      'https://images.unsplash.com/photo-1719400471588-575b23e27bd7?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixlib=rb-4.1.0&q=80&w=1080',
+    image: '/Restaurant Reservation Web Service.png',
     tags: ['Node.js', 'Express.js', 'REST API', 'Postman', 'JavaScript'],
     link: '#',
     github: 'https://github.com/Yolwadee6509650070/restaurant_reservation_webservice',
@@ -22,8 +33,7 @@ const projects = [
     category: 'Enterprise Software Architecture',
     description:
       'Designed and implemented microservices for restaurant data and order management. Integrated Kafka for async messaging, built REST APIs for order/payment/rider operations, containerized with Docker, and validated with Postman.',
-    image:
-      'https://images.unsplash.com/photo-1676792519027-7c42006d7b4a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixlib=rb-4.1.0&q=80&w=1080',
+    image: '/food-delivery-solution.png',
     tags: ['Spring Boot', 'Kafka', 'REST API', 'SQL Server', 'Docker', 'Postman'],
     link: '#',
     github: '#',
@@ -34,8 +44,7 @@ const projects = [
     category: 'DevOps / Full Stack',
     description:
       'Profile management with secure auth and access control. Wrote unit/middleware and integration tests (85%+ coverage). Automated CI with GitHub Actions, deployed backend via Docker and tested on AWS EC2.',
-    image:
-      'https://images.unsplash.com/photo-1658953229625-aad99d7603b4?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixlib=rb-4.1.0&q=80&w=1080',
+    image: '/foodadvisor.png',
     tags: ['AWS EC2', 'React', 'Strapi', 'Docker', 'GitHub Actions', 'Jest', 'CI/CD'],
     link: '#',
     github: 'https://github.com/Yolwadee6509650070/cs360_group',
@@ -46,8 +55,7 @@ const projects = [
     category: 'AI Application',
     description:
       'Integrated Google Drive API to fetch meeting files and extract text. Built an LLM-based summarization system with RAG + keyword search for contextual Q&A, generating key points and action items automatically.',
-    image:
-      'https://images.unsplash.com/photo-1592773307163-962d25055c3c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixlib=rb-4.1.0&q=80&w=1080',
+    image: '/aimeeting.png',
     tags: ['LLM', 'RAG', 'Google Drive API', 'React', 'Node.js'],
     link: '#',
     github: '#',
@@ -58,8 +66,7 @@ const projects = [
     category: 'Side Project',
     description:
       'Secure Express REST API with PostgreSQL, JWT auth, Helmet/CORS hardening, and HMAC validation for LINE webhooks. Integrated LINE Messaging & Google Drive APIs for per-user uploads, with a worker queue and usage/quota/activity endpoints.',
-    image:
-      'https://images.unsplash.com/photo-1719400471588-575b23e27bd7?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixlib=rb-4.1.0&q=80&w=1080',
+    image: '/pixcel.png',
     tags: ['React', 'TypeScript', 'Vite', 'Radix UI', 'TailwindCSS', 'Node.js', 'Express', 'PostgreSQL', 'JWT', 'Helmet', 'CORS', 'LINE API', 'Google Drive API', 'Docker'],
     link: '#',
     github: '#',
@@ -117,7 +124,7 @@ export function Projects() {
   );
 }
 
-function ProjectCard({ project, index }: { project: typeof projects[0]; index: number }) {
+function ProjectCard({ project, index }: { project: Project; index: number }) {
   const ref = useRef<HTMLDivElement>(null);
   const isInView = useInView(ref, { once: true, amount: 0.3 });
   const [isHovered, setIsHovered] = useState(false);
@@ -152,11 +159,22 @@ function ProjectCard({ project, index }: { project: typeof projects[0]; index: n
           style={{ y: imageY, scale: imageScale }}
           className="w-full h-full"
         >
-          <ImageWithFallback
-            src={project.image}
-            alt={project.title}
-            className="w-full h-full object-cover"
-          />
+          {project.video ? (
+            <video
+              src={project.video}
+              className="w-full h-full object-cover"
+              autoPlay
+              muted
+              loop
+              playsInline
+            />
+          ) : (
+            <ImageWithFallback
+              src={project.image}
+              alt={project.title}
+              className="w-full h-full object-cover"
+            />
+          )}
         </motion.div>
 
         {/* Gradient Overlay */}

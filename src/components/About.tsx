@@ -87,8 +87,8 @@ export function About() {
               className="relative h-[500px] md:h-[600px] rounded-2xl overflow-hidden"
             >
               <ImageWithFallback
-                src="https://images.unsplash.com/photo-1593062096033-9a26b09da705?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxtaW5pbWFsJTIwd29ya3NwYWNlfGVufDF8fHx8MTc1OTgzMzY4MHww&ixlib=rb-4.1.0&q=80&w=1080"
-                alt="Workspace"
+                src="/me.webp"
+                alt="About Me"
                 className="w-full h-full object-cover"
               />
               
